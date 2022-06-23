@@ -14,7 +14,7 @@ from util.plugins.commun import *
 def search_for_updates():
     clear()
     setTitle("@@Zeldris Checking For Updates...")
-    r = requests.get("https://github.com/AstraaDev/Discord-All-Tools-In-One/releases/latest")
+    r = requests.get("https://github.com/ZeldrisXdev/zeldristools/releases/latest")
 
     soup = str(BeautifulSoup(r.text, 'html.parser'))
     s1 = re.search('<title>', soup)
@@ -30,8 +30,8 @@ def search_for_updates():
                     ██║ ╚████║███████╗╚███╔███╔╝    ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗██╗
                     ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝      ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝\n'''.replace('█', f'{b}█{y}'))
         discserver()
-        print(f'''{y}[{Fore.RED}!{y}]{w}Looks like this @TIO {THIS_VERSION} is outdated...''')
-        soup = BeautifulSoup(requests.get("https://github.com/AstraaDev/Discord-All-Tools-In-One/releases").text, 'html.parser')
+        print(f'''{y}[{Fore.RED}!{y}]{w}Looks like this @Zeldris {THIS_VERSION} is outdated...''')
+        soup = BeautifulSoup(requests.get("https://github.com/ZeldrisXdev/zeldristools/releases").text, 'html.parser')
         for link in soup.find_all('a'):
             if "releases/download" in str(link):
                 update_url = f"https://github.com/{link.get('href')}"
@@ -42,38 +42,38 @@ def search_for_updates():
             setTitle(f'@Zeldris Updating...')
 
             if os.path.basename(sys.argv[0]).endswith("exe"):
-                with open("@TIO.zip", 'wb')as zipfile:
+                with open("zeldristool-main.zip", 'wb')as zipfile:
                     zipfile.write(requests.get(update_url).content)
-                with ZipFile("@TIO.zip", 'r') as filezip:
+                with ZipFile("zeldristool-main.zip", 'r') as filezip:
                     filezip.extractall()
-                os.remove("@TIO.zip")
-                cwd = os.getcwd()+'\\@TIO\\'
+                os.remove("zeldristool-main.zip")
+                cwd = os.getcwd()+'\\zeldristool\\'
                 shutil.copyfile(cwd+'Changelog.md', 'Changelog.md')
                 try:
                     shutil.copyfile(cwd+os.path.basename(sys.argv[0]), '@TIO.exe')
                 except Exception:
                     pass
                 shutil.copyfile(cwd+'README.md', 'README.md')                   
-                shutil.rmtree('@TIO')
-                setTitle('@@Zeldris Update Complete!')
+                shutil.rmtree('zeldris')
+                setTitle('@Zeldris Update Complete!')
                 input(f"\n{y}[{Fore.GREEN}!{y}]{w} Update Successfully Finished!", end="")
-                os.startfile("@TIO.exe")
+                os.startfile("@zeldris.py")
                 os._exit(0)
 
             else:
-                new_version_source = requests.get("https://github.com/AstraaDev/Discord-All-Tools-In-One/archive/refs/heads/master.zip")
-                with open("Discord-All-Tools-In-One-main.zip", 'wb')as zipfile:
+                new_version_source = requests.get("https://github.com/ZeldrisXdev/zeldristools/archive/refs/heads/main.zip")
+                with open("zeldristool-main.zip", 'wb')as zipfile:
                     zipfile.write(new_version_source.content)
-                with ZipFile("Discord-All-Tools-In-One-main.zip", 'r') as filezip:
+                with ZipFile("zeldristool-main.zip", 'r') as filezip:
                     filezip.extractall()
-                os.remove("Discord-All-Tools-In-One-main.zip")
-                cwd = os.getcwd()+'\\Discord-All-Tools-In-One-main'
+                os.remove("zeldristool-main.zip")
+                cwd = os.getcwd()+'\\zeldristool-main'
                 shutil.copytree(cwd, os.getcwd(), dirs_exist_ok=True)
                 shutil.rmtree(cwd)
-                setTitle('@@Zeldris Update Complete!')
+                setTitle('@Zeldris Update Complete!')
                 input(f"\n{y}[{Fore.GREEN}!{y}]{w} Update Successfully Finished!")
-                if os.path.exists(os.getcwd()+'setup.bat'):
+                if os.path.exists(os.getcwd()+'setup_tool.bat'):
                     os.startfile("setup.bat")
-                elif os.path.exists(os.getcwd()+'start.bat'):
-                    os.startfile("start.bat")
+                elif os.path.exists(os.getcwd()+'start_tool.bat'):
+                    os.startfile("start_tool.bat")
                 os._exit(0)
